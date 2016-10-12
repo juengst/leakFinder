@@ -18,8 +18,10 @@
 
 #ifdef __cplusplus
 extern "C" {
+#endif
     void *loggingMalloc(int len, const char *file, int line);
     void loggingFree(void *p, const char *file, int line);
+#ifdef __cplusplus
 }
 #endif
 

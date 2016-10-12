@@ -17,14 +17,14 @@
 #include <stdlib.h>
 #include <stdio.h>
 
-void *loggingMalloc(int len, char *file, int line) 
+void *loggingMalloc(int len, const char *file, int line) 
 { 
     void *p = malloc(len); 
     printf("M 0x%x %s %d\n",(unsigned int)p,file,line);
     return p; 
 }
 
-void loggingFree(void *p, char *file, int line)
+void loggingFree(void *p, const char *file, int line)
 { 
     printf("F 0x%x %s %d\n",(unsigned int)p,file,line);
     free(p); 

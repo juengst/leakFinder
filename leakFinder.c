@@ -15,12 +15,13 @@
 */
 
 #include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+#include <errno.h>
 
 #ifndef NULL
 #define NULL (void *)0
 #endif
-
-extern int errno;
 
 typedef struct listEntry
 {
@@ -79,7 +80,7 @@ void printList(void)
 
     while(entry != NULL)
     {
-        printf("0x%x %s line %d\n",entry->p,entry->file,entry->line);
+        printf("0x%x %s line %d\n",(unsigned int)(unsigned long)(entry->p),entry->file,entry->line);
         entry = entry->next;
     }
 }
@@ -109,7 +110,7 @@ int main(int argc, char **argv)
                 switch(buffer[0])
                 {
                     case 'M':
-                        if((i=sscanf(buffer,"M 0x%x %s %d\n",&p,file,&line)) == 3)
+                        if((i=sscanf(buffer,"M 0x%x %s %d\n",(unsigned int *)&p,file,&line)) == 3)
                         {
                             addToList(p,file,line);
                         }
@@ -117,7 +118,7 @@ int main(int argc, char **argv)
                             printf("scanf failed to parse %s: %d\n",buffer,i);
                         break;
                     case 'F':
-                        if((i=sscanf(buffer,"F 0x%x %s %d\n",&p,file,&line)) == 3)
+                        if((i=sscanf(buffer,"F 0x%x %s %d\n",(unsigned int *)&p,file,&line)) == 3)
                         {
                             removeFromList(p,file,line);
                         }
